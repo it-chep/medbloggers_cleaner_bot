@@ -1,6 +1,6 @@
 package dao
 
-import "docstar_cleaner_bot/internal/domain/entity"
+import "medbloggers_cleaner_bot/internal/domain/entity"
 
 type HashtagsDAO struct {
 	Hashtags []string `db:"hashtags"`

@@ -13,10 +13,11 @@ type Config struct {
 	StorageConfig StorageConfig `yaml:"storage"`
 	HTTPServer    HTTPServer    `yaml:"http_server"`
 	Bot           BotConfig     `yaml:"bot"`
+	Chats         ChatsConfig   `yaml:"chats"`
 }
 
 type HTTPServer struct {
-	Address     string        `yaml:"address" env-default:"localhost:8080"`
+	Address     string        `yaml:"address" env-default:"localhost:8000"`
 	Timeout     time.Duration `yaml:"timeout" env-default:"4s"`
 	IdleTimeout time.Duration `yaml:"idle_timeout" env-default:"60s"`
 }
@@ -43,6 +44,12 @@ type UpdatesConfig struct {
 	Limit          int      `yaml:"limit"`
 	Timeout        int      `yaml:"timeout"`
 	AllowedUpdates []string `yaml:"allowed_updates"`
+}
+
+type ChatsConfig struct {
+	AdvertisingChat int64 `yaml:"advertising_chat"`
+	JobChat         int64 `yaml:"job_chat"`
+	AdminChat       int64 `yaml:"admin_chat"`
 }
 
 // NewConfig ctor

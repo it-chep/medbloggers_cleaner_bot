@@ -2,11 +2,11 @@ package start
 
 import (
 	"context"
-	"docstar_cleaner_bot/internal/controller/dto/tg"
-	"docstar_cleaner_bot/pkg/client/telegram"
 	"fmt"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"log/slog"
+	"medbloggers_cleaner_bot/internal/controller/dto/tg"
+	"medbloggers_cleaner_bot/pkg/client/telegram"
 )
 
 type StartBotCommand struct {
@@ -34,8 +34,15 @@ func (c *StartBotCommand) Execute(ctx context.Context, message tg.MessageDTO) {
 
 	msg := tgbotapi.NewMessage(
 		c.tgUser.TgID,
-		fmt.Sprintf("Привет от @medbloggers_cleaner_bot, меня создал @maxim_jordan на языке golang для очистки чатов от сообщений без нужных хэштегов"),
+		fmt.Sprintf(
+			"Отправьте сообщение, которое хотите опубликовать в \n🟣 "+
+				"«[Чат вакансий врачей-блогеров MEDBLOGERS](https://t.me/docstar_job/198)» \n\nили в\n\n🟠 «[Чат рекламы врачей-блогеров MEDBLOGERS](https://t.me/docstar_ad/44)»"+
+				"\n\nНе забудьте указать корректный хэштег для публикации в зависимости от запроса, например:"+
+				" #ищувмедблогерс #помогувмедблогерс #ищунарекламу и тд\n\nПодробнее о хэштегах в закрепах обоих чатов.",
+		),
 	)
+	msg.ParseMode = "Markdown"
+	msg.DisableWebPagePreview = true
 	c.bot.SendMessage(msg)
 	return
 }

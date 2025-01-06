@@ -2,17 +2,17 @@ package internal
 
 import (
 	"context"
-	"docstar_cleaner_bot/internal/config"
-	"docstar_cleaner_bot/internal/controller"
-	"docstar_cleaner_bot/internal/domain/services/message"
-	"docstar_cleaner_bot/internal/domain/services/user"
-	"docstar_cleaner_bot/internal/storage/read_repo"
-	"docstar_cleaner_bot/internal/storage/write_repo"
-	"docstar_cleaner_bot/internal/worker_pool"
-	"docstar_cleaner_bot/internal/worker_pool/tasks"
-	"docstar_cleaner_bot/pkg/client/postgres"
-	"docstar_cleaner_bot/pkg/client/telegram"
 	"log/slog"
+	"medbloggers_cleaner_bot/internal/config"
+	"medbloggers_cleaner_bot/internal/controller"
+	"medbloggers_cleaner_bot/internal/domain/services/message"
+	"medbloggers_cleaner_bot/internal/domain/services/user"
+	"medbloggers_cleaner_bot/internal/storage/read_repo"
+	"medbloggers_cleaner_bot/internal/storage/write_repo"
+	"medbloggers_cleaner_bot/internal/worker_pool"
+	"medbloggers_cleaner_bot/internal/worker_pool/tasks"
+	"medbloggers_cleaner_bot/pkg/client/postgres"
+	"medbloggers_cleaner_bot/pkg/client/telegram"
 	"net/http"
 )
 
@@ -68,7 +68,6 @@ func NewApp(ctx context.Context) *App {
 }
 
 func (app *App) Run(ctx context.Context) error {
-	app.logger.Info("start server")
-	app.workerPool.Run(ctx)
+	app.logger.Info("start server", app.server.Addr)
 	return app.server.ListenAndServe()
 }

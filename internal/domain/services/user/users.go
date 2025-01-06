@@ -2,12 +2,12 @@ package user
 
 import (
 	"context"
-	"docstar_cleaner_bot/internal/controller/dto/tg"
-	"docstar_cleaner_bot/internal/domain/entity"
-	"docstar_cleaner_bot/internal/enums"
 	"errors"
 	"fmt"
 	"log/slog"
+	"medbloggers_cleaner_bot/internal/controller/dto/tg"
+	"medbloggers_cleaner_bot/internal/domain/entity"
+	"medbloggers_cleaner_bot/internal/enums"
 	"reflect"
 	"strings"
 	"time"

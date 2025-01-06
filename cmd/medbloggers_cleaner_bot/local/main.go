@@ -2,8 +2,8 @@ package main
 
 import (
 	"context"
-	"docstar_cleaner_bot/internal"
 	"log"
+	"medbloggers_cleaner_bot/internal"
 )
 
 func main() {

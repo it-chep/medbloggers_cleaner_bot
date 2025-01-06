@@ -1,7 +1,7 @@
 package dao
 
 import (
-	"docstar_cleaner_bot/internal/domain/entity"
+	"medbloggers_cleaner_bot/internal/domain/entity"
 	"time"
 )
 

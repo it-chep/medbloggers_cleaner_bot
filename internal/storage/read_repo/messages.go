@@ -2,14 +2,14 @@ package read_repo
 
 import (
 	"context"
-	"docstar_cleaner_bot/internal/domain/entity"
-	"docstar_cleaner_bot/internal/storage/dao"
-	"docstar_cleaner_bot/pkg/client/postgres"
 	"errors"
 	"fmt"
 	"github.com/georgysavva/scany/v2/pgxscan"
 	"github.com/jackc/pgx/v5"
 	"log/slog"
+	"medbloggers_cleaner_bot/internal/domain/entity"
+	"medbloggers_cleaner_bot/internal/storage/dao"
+	"medbloggers_cleaner_bot/pkg/client/postgres"
 )
 
 type MessageStorage struct {

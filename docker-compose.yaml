@@ -20,48 +20,28 @@ services:
     ports:
       - "${DB_PORT}:${DB_PORT}"
 
-  redis:
-    image: redis
-    container_name: redis
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    expose:
+      - 8000
+    container_name: app
     networks:
       - bloggers-network
-    expose:
-      - 6379
-    ports:
-      - "6379:6379"
-
-#  app:
-#    build: .
-#    ports:
-#      - "8000:8000"
-#    expose:
-#      - 8000
-#    container_name: app
-#    networks:
-#      - bloggers-network
-#    depends_on:
-#      - postgres
-#    environment:
-#      - C_FORCE_ROOT='true'
-#      - PYTHONUNBUFFERED=1
-#      - LOCAL_PYTEST=1
-#      - DB_USER=${DB_USER}
-#      - DB_PASSWORD=${DB_PASSWORD}
-#      - DB_NAME=${DB_NAME}
-#      - DB_PORT=${DB_PORT}
-#      - DB_HOST=${DB_HOST}
-#      - DEBUG=${DEBUG}
-#      - ENVIRONMENT_TYPE=docker
-
-#  pgadmin:
-#    container_name: pgadmin
-#    image: dpage/pgadmin4
-#    environment:
-#      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
-#      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
-#      PGADMIN_LISTEN_PORT: 5050
-#    ports:
-#      - "5050:5050"
+    depends_on:
+      - postgres
+    environment:
+      - C_FORCE_ROOT='true'
+      - PYTHONUNBUFFERED=1
+      - LOCAL_PYTEST=1
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - DB_PORT=${DB_PORT}
+      - DB_HOST=${DB_HOST}
+      - DEBUG=${DEBUG}
+      - ENVIRONMENT_TYPE=docker
 
 networks:
   bloggers-network:

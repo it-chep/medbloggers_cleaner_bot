@@ -2,19 +2,20 @@ package bot
 
 import (
 	"context"
-	"docstar_cleaner_bot/internal/config"
-	"docstar_cleaner_bot/internal/controller/bot/commands/health_check"
-	"docstar_cleaner_bot/internal/controller/bot/commands/start"
-	"docstar_cleaner_bot/internal/controller/bot/commands/tech_support"
-	textmessage "docstar_cleaner_bot/internal/controller/bot/text"
-	"docstar_cleaner_bot/internal/controller/dto/tg"
-	"docstar_cleaner_bot/pkg/client/telegram"
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"io"
 	"log/slog"
+	"medbloggers_cleaner_bot/internal/config"
+	callback "medbloggers_cleaner_bot/internal/controller/bot/callback/callback_message"
+	"medbloggers_cleaner_bot/internal/controller/bot/commands/health_check"
+	"medbloggers_cleaner_bot/internal/controller/bot/commands/start"
+	"medbloggers_cleaner_bot/internal/controller/bot/commands/tech_support"
+	textmessage "medbloggers_cleaner_bot/internal/controller/bot/text"
+	"medbloggers_cleaner_bot/internal/controller/dto/tg"
+	"medbloggers_cleaner_bot/pkg/client/telegram"
 	"net/http"
 )
 
@@ -47,6 +48,12 @@ func (t TelegramWebhookController) BotWebhookHandler(c *gin.Context) {
 			t.logger.Error(fmt.Sprintf("%s", err))
 		}
 	}(c.Request.Body)
+
+	defer func() {
+		if r := recover(); r != nil {
+			t.logger.Error("application recovered from panic", slog.Any("error", r))
+		}
+	}()
 
 	var update tgbotapi.Update
 	if err := c.ShouldBindJSON(&update); err != nil {
@@ -106,13 +113,14 @@ func (t TelegramWebhookController) ForkCommands(ctx context.Context, update tgbo
 // todo и в зависимости от состояния пользователя ему будет выдаваться контент
 
 func (t TelegramWebhookController) ForkMessages(ctx context.Context, tgUser tg.TgUserDTO, tgMessage tg.MessageDTO) {
-	messageBot := textmessage.NewTextBotMessage(t.logger, t.bot, tgUser, t.userService)
+	messageBot := textmessage.NewTextBotMessage(t.logger, t.bot, tgUser, t.cfg)
 	messageBot.Execute(ctx, tgMessage)
 }
 
 func (t TelegramWebhookController) ForkCallbacks(ctx context.Context, update tgbotapi.Update, tgUser tg.TgUserDTO, tgMessage tg.MessageDTO) {
 	callbackData := update.CallbackData()
-	t.logger.Info(callbackData)
+	callbackBot := callback.NewCallbackBot(t.logger, t.bot, tgUser)
+	callbackBot.Execute(ctx, tgMessage, callbackData)
 }
 
 func (t TelegramWebhookController) getUserFromWebhook(update tgbotapi.Update) tg.TgUserDTO {

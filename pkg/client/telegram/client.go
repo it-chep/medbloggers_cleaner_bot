@@ -1,10 +1,10 @@
 package telegram
 
 import (
-	"docstar_cleaner_bot/internal/config"
 	"fmt"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"log/slog"
+	"medbloggers_cleaner_bot/internal/config"
 )
 
 type Bot struct {
@@ -43,8 +43,8 @@ func (bot *Bot) SendMessage(msg tgbotapi.MessageConfig) {
 	}
 }
 
-func (bot *Bot) RemoveMessage(chatId int64, messageId int) {
-	messageToDelete := tgbotapi.NewDeleteMessage(chatId, messageId)
+func (bot *Bot) RemoveMessage(chatId int64, messageId int64) {
+	messageToDelete := tgbotapi.NewDeleteMessage(chatId, int(messageId))
 	_, err := bot.Bot.Send(messageToDelete)
 	if err != nil {
 		return

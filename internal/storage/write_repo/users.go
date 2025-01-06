@@ -2,10 +2,10 @@ package write_repo
 
 import (
 	"context"
-	"docstar_cleaner_bot/internal/domain/entity"
-	"docstar_cleaner_bot/pkg/client/postgres"
 	"fmt"
 	"log/slog"
+	"medbloggers_cleaner_bot/internal/domain/entity"
+	"medbloggers_cleaner_bot/pkg/client/postgres"
 )
 
 type UserStorage struct {

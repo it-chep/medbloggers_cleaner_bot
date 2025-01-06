@@ -1,6 +1,6 @@
 package tg
 
-import "docstar_cleaner_bot/internal/domain/entity"
+import "medbloggers_cleaner_bot/internal/domain/entity"
 
 type Chat struct {
 	ID int64 `json:"id"`

@@ -1,14 +1,14 @@
 package controller
 
 import (
-	"docstar_cleaner_bot/internal/config"
-	"docstar_cleaner_bot/pkg/client/telegram"
 	"github.com/gin-gonic/gin"
+	"medbloggers_cleaner_bot/internal/config"
+	"medbloggers_cleaner_bot/pkg/client/telegram"
 
 	"log/slog"
 	"net/http"
 
-	botapi "docstar_cleaner_bot/internal/controller/bot"
+	botapi "medbloggers_cleaner_bot/internal/controller/bot"
 )
 
 type RestController struct {
@@ -41,6 +41,11 @@ func NewRestController(
 }
 
 func (r *RestController) InitController() {
+	r.router.GET("/", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"status": "ok",
+		})
+	})
 	r.router.POST("/"+r.cfg.Bot.Token+"/", r.botApiController.BotWebhookHandler)
 }
 

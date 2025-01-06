@@ -2,7 +2,7 @@ package user
 
 import (
 	"context"
-	"docstar_cleaner_bot/internal/domain/entity"
+	"medbloggers_cleaner_bot/internal/domain/entity"
 )
 
 type readUserStorage interface {

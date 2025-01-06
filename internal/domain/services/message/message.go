@@ -2,8 +2,8 @@ package message
 
 import (
 	"context"
-	"docstar_cleaner_bot/internal/domain/entity"
 	"log/slog"
+	"medbloggers_cleaner_bot/internal/domain/entity"
 )
 
 type MessageService struct {
